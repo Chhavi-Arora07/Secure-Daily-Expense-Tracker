@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secure Daily Expense Tracker</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>Secure Daily Expense Tracker</h1>
+    <div id="userBox" hidden>
+      <span id="whoami"></span>
+      <button id="logoutBtn" type="button" class="link">Log out</button>
+    </div>
+  </header>
+
+  <main>
+    <p id="msg" role="alert"></p>
+
+    <section id="authView" class="grid">
+      <div class="card">
+        <h2>Sign in</h2>
+        <form id="loginForm">
+          <label for="loginUser">Username</label>
+          <input id="loginUser" autocomplete="username" maxlength="30" required>
+          <label for="loginPass">Password</label>
+          <input id="loginPass" type="password" autocomplete="current-password" maxlength="128" required>
+          <button type="submit">Sign in</button>
+        </form>
+      </div>
+      <div class="card">
+        <h2>Create account</h2>
+        <form id="registerForm">
+          <label for="regUser">Username (3-30 letters, digits, _)</label>
+          <input id="regUser" autocomplete="username" maxlength="30" required>
+          <label for="regPass">Password (at least 12 characters)</label>
+          <input id="regPass" type="password" autocomplete="new-password" minlength="12" maxlength="128" required>
+          <button type="submit">Create account</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="appView" hidden>
+      <div class="card">
+        <h2 id="formTitle">Add expense</h2>
+        <form id="expenseForm" class="row">
+          <div>
+            <label for="amount">Amount</label>
+            <input id="amount" inputmode="decimal" placeholder="12.50" maxlength="10" required>
+          </div>
+          <div>
+            <label for="category">Category</label>
+            <select id="category" required>
+              <option value="FOOD">Food</option>
+              <option value="TRANSPORT">Transport</option>
+              <option value="HOUSING">Housing</option>
+              <option value="UTILITIES">Utilities</option>
+              <option value="HEALTH">Health</option>
+              <option value="ENTERTAINMENT">Entertainment</option>
+              <option value="OTHER">Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="date">Date</label>
+            <input id="date" type="date" required>
+          </div>
+          <div class="wide">
+            <label for="description">Description (optional)</label>
+            <input id="description" maxlength="100">
+          </div>
+          <div class="actions">
+            <button type="submit" id="saveBtn">Add</button>
+            <button type="button" id="cancelBtn" class="secondary" hidden>Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card">
+        <div class="toolbar">
+          <div>
+            <label for="filter">Filter</label>
+            <select id="filter">
+              <option value="">All categories</option>
+              <option value="FOOD">Food</option>
+              <option value="TRANSPORT">Transport</option>
+              <option value="HOUSING">Housing</option>
+              <option value="UTILITIES">Utilities</option>
+              <option value="HEALTH">Health</option>
+              <option value="ENTERTAINMENT">Entertainment</option>
+              <option value="OTHER">Other</option>
+            </select>
+          </div>
+          <div class="total">Total: <strong id="total">0.00</strong> (<span id="count">0</span> items)</div>
+          <a id="exportLink" class="button secondary" href="/api/export">Export CSV</a>
+        </div>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>Date</th><th>Category</th><th>Description</th><th class="num">Amount</th><th></th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+        <p id="empty" hidden>No expenses yet.</p>
+        <div class="pager">
+          <button type="button" id="prevBtn" class="secondary">Previous</button>
+          <span id="pageInfo"></span>
+          <button type="button" id="nextBtn" class="secondary">Next</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
